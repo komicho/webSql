@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>run smart</title>
+    
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div id="res"></div>
+</body>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="webSql.js"></script>
+<script>
+    
+    var db = new websql('webSql_test');
+    db.sqlOrder('CREATE TABLE IF NOT EXISTS `post` (title, post)');
+    // insert post 1
+    db.table('post').insert({
+        title : 'post 1',
+        'post' : 'content post one'
+    }).run(function(re){
+        console.log(re);
+    });
+    // insert post 2
+    db.table('post').insert({
+        title : 'post 2',
+        'post' : 'content post tow'
+    }).run(function(re){
+        console.log(re);
+    });
+    // slect
+    db.table('post').select().run(function(x){
+        x.forEach(function (item) {
+            $('#res').append(`<div><b>${item.title}</b><p>${item.post}</p></div>`);
+        });
+    });
+    
+</script>
+</html>
